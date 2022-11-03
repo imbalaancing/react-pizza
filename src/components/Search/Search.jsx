@@ -1,6 +1,10 @@
+import { useContext } from 'react';
+import { SearchContext } from '../../App';
 import styles from './Search.module.scss';
 
-function Search({ searchValue, setSearchValue }) {
+function Search() {
+  const { searchValue, setSearchValue } = useContext(SearchContext);
+
   return (
     <input
       value={searchValue}
