@@ -1,4 +1,4 @@
-import { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState } from 'react';
 import { SearchContext } from '../../App';
 import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
@@ -7,7 +7,7 @@ function Search() {
   const [value, setValue] = useState('');
   const { setSearchValue } = useContext(SearchContext);
 
-  const updateSearchValue = useCallback(
+  const updateSearchValue = React.useCallback(
     debounce((str) => {
       setSearchValue(str);
     }, 1000),
