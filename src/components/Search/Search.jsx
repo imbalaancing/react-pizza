@@ -1,14 +1,28 @@
-import { useContext } from 'react';
+import { useContext, useState, useCallback } from 'react';
 import { SearchContext } from '../../App';
+import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
 
 function Search() {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const [value, setValue] = useState('');
+  const { setSearchValue } = useContext(SearchContext);
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 1000),
+    []
+  );
+
+  const onChangeInput = (event) => {
+    setValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
 
   return (
     <input
-      value={searchValue}
-      onChange={(event) => setSearchValue(event.target.value)}
+      value={value}
+      onChange={onChangeInput}
       className={styles.root}
       type="text"
       placeholder="Поиск пиццы..."
