@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
@@ -28,18 +29,17 @@ function Home() {
 
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    fetch(
-      `https://635e2b4eed25a0b5fe3fdb84.mockapi.io/items?page=${currentPage}&limit=4&${
-        categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}&order=desc${search}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((arr) => {
-        setItems(arr);
+    axios
+      .get(
+        `https://635e2b4eed25a0b5fe3fdb84.mockapi.io/items?page=${currentPage}&limit=4&${
+          categoryId > 0 ? `category=${categoryId}` : ''
+        }&sortBy=${sortType.sortProperty}&order=desc${search}`
+      )
+      .then((responce) => {
+        setItems(responce.data);
         setIsLoading(false);
       });
+
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
 
