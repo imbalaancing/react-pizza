@@ -8,7 +8,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort, { list } from '../components/Sort';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination/Pagination';
-import { SearchContext } from '../App';
+import { SearchContext } from '../App.tsx';
 import {
   setCategoryId,
   setCurrentPage,

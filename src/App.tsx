@@ -8,7 +8,7 @@ import './scss/app.scss';
 import Cart from './pages/Cart';
 import FullPizza from './pages/FullPizza';
 
-export const SearchContext = React.createContext();
+export const SearchContext = React.createContext({});
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
