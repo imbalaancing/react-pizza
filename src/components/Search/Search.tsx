@@ -1,20 +1,20 @@
 import React, { useContext, useState } from 'react';
-import { SearchContext } from '../../App.tsx';
+import { SearchContext } from '../../App';
 import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
 
-function Search() {
+const Search: React.FC = () => {
   const [value, setValue] = useState('');
-  const { setSearchValue } = useContext(SearchContext);
+  const { setSearchValue }: any = useContext(SearchContext);
 
   const updateSearchValue = React.useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       setSearchValue(str);
     }, 1000),
     []
   );
 
-  const onChangeInput = (event) => {
+  const onChangeInput = (event: any) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
@@ -28,6 +28,6 @@ function Search() {
       placeholder="Поиск пиццы..."
     />
   );
-}
+};
 
 export default Search;

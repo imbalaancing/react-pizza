@@ -8,7 +8,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort, { list } from '../components/Sort';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination/Pagination';
-import { SearchContext } from '../App.tsx';
+import { SearchContext } from '../App';
 import {
   setCategoryId,
   setCurrentPage,
@@ -16,24 +16,24 @@ import {
 } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
 
-function Home() {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const sortType = useSelector((state) => state.filter.sort.sortProperty);
-  const currentPage = useSelector((state) => state.filter.currentPage);
+  const categoryId = useSelector((state: any) => state.filter.categoryId);
+  const sortType = useSelector((state: any) => state.filter.sort.sortProperty);
+  const currentPage = useSelector((state: any) => state.filter.currentPage);
   const { items, status } = useSelector(selectPizzaData);
 
-  const { searchValue } = useContext(SearchContext);
+  const { searchValue }: any = useContext(SearchContext);
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
 
@@ -41,6 +41,7 @@ function Home() {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         search,
         currentPage,
@@ -90,7 +91,7 @@ function Home() {
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = items.map((obj) => (
+  const pizzas = items.map((obj: any) => (
     <Link key={obj.id} to={`/pizza/${obj.id}`}>
       <PizzaBlock {...obj} />
     </Link>
@@ -120,6 +121,6 @@ function Home() {
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
-}
+};
 
 export default Home;
